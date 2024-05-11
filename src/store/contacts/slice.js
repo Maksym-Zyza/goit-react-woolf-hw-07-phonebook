@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 import { fetchApi } from 'API/api-service';
 
 export const fetchContacts = createAsyncThunk('fetchAll', async () => {
@@ -7,12 +8,12 @@ export const fetchContacts = createAsyncThunk('fetchAll', async () => {
 });
 export const addContact = createAsyncThunk('addContact', async body => {
   const createItem = await fetchApi.createContact(body);
-  console.log(`Contact ${createItem.name} was added`);
+  toast.success(`Contact ${createItem.name} was added`);
   return createItem;
 });
 export const deleteContact = createAsyncThunk('deleteContact', async id => {
   const deletedItem = await fetchApi.deleteContact(id);
-  console.log(`Contact ${deletedItem.name} was removed`);
+  toast.success(`Contact ${deletedItem.name} was removed`);
   return deletedItem.id;
 });
 

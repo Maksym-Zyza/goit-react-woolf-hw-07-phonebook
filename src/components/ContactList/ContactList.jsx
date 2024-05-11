@@ -1,14 +1,13 @@
-import Loader from 'components/Loader';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, deleteContact } from 'store/contacts/slice';
 import { getContacts, getFilteredContacts } from 'store/selectors';
+import Error from 'components/Error/Error';
+import Loader from 'components/Loader/Loader';
 
 export const ContactList = () => {
-  const { items, isLoading, error } = useSelector(getContacts);
+  const { isLoading, error } = useSelector(getContacts);
   const contacts = useSelector(getFilteredContacts);
-  // console.log(items, isLoading, error);
-  console.log(contacts);
 
   const dispatch = useDispatch();
 
@@ -30,6 +29,7 @@ export const ContactList = () => {
         </li>
       ))}
       {isLoading && <Loader />}
+      {error && <Error error={error} />}
     </ul>
   );
 };
