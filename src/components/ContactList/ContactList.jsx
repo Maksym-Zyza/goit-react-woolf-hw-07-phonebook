@@ -1,12 +1,14 @@
+import Loader from 'components/Loader';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, deleteContact } from 'store/contacts/slice';
-import { getContacts, getFilterValue } from 'store/selectors';
+import { getContacts, getFilteredContacts } from 'store/selectors';
 
 export const ContactList = () => {
   const { items, isLoading, error } = useSelector(getContacts);
-  const { filter } = useSelector(getFilterValue);
-  console.log(items, isLoading, error);
+  const contacts = useSelector(getFilteredContacts);
+  // console.log(items, isLoading, error);
+  console.log(contacts);
 
   const dispatch = useDispatch();
 
@@ -14,22 +16,20 @@ export const ContactList = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
-  const filteredContacts = () =>
-    items.filter(el => el.name.toLowerCase().includes(filter.toLowerCase()));
-
   const deleteContactById = id => {
     dispatch(deleteContact(id));
   };
 
   return (
     <ul>
-      {filteredContacts().map(contact => (
+      {contacts.map(contact => (
         <li key={contact.id}>
-          {`${contact.name}: ${contact.number}`}
+          {`${contact.name}: ${contact.phone}`}
 
           <button onClick={() => deleteContactById(contact.id)}>Delete</button>
         </li>
       ))}
+      {isLoading && <Loader />}
     </ul>
   );
 };
