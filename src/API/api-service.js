@@ -17,9 +17,9 @@ export const fetchApi = {
     const url = `${BASE_URL}/?${params}`;
     return await fetchData(url);
   },
-  async createContact(id, contactBody) {
+  async createContact(contactBody) {
     const method = 'POST';
-    const url = `${BASE_URL}/${id}`;
+    const url = `${BASE_URL}`;
     const body = JSON.stringify(contactBody);
     return await fetchData(url, method, body);
   },

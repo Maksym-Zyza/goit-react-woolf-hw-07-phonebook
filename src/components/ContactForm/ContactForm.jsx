@@ -1,7 +1,6 @@
-import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addContact } from 'store/contacts/slice';
+import { addAction } from 'store/contacts/slice';
 
 const defaultState = { name: '', number: '' };
 
@@ -13,11 +12,10 @@ const ContactForm = () => {
     e.preventDefault();
     const { name, number } = state;
     const contact = {
-      id: nanoid(),
       name: name.trim(),
-      number: number,
+      phone: number,
     };
-    dispatch(addContact(contact));
+    dispatch(addAction(contact));
     setState(defaultState);
   };
 
