@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addAction } from 'store/contacts/slice';
+import { addContact } from 'store/contacts/slice';
 
 const defaultState = { name: '', number: '' };
 
@@ -15,7 +15,7 @@ const ContactForm = () => {
       name: name.trim(),
       phone: number,
     };
-    dispatch(addAction(contact));
+    dispatch(addContact(contact));
     setState(defaultState);
   };
 
